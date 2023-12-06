@@ -1,0 +1,30 @@
+{
+  "name": "gp-backend",
+  "version": "1.0.0",
+  "description": "- select chip skin  // بدر\r - player name  // بدر\r - live score  // بدر\r - high score  // بدر\r - box for camera and ML // اعمل مكانها بس  //  بدر  \r  ]",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "build": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EbraheemAbdelAziz/GP-BackEnd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EbraheemAbdelAziz/GP-BackEnd/issues"
+  },
+  "homepage": "https://github.com/EbraheemAbdelAziz/GP-BackEnd#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.2"
+  }
+}
