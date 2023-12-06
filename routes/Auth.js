@@ -12,12 +12,54 @@ router.post(
   body("email").isEmail().withMessage("Please enter the valid Email"),
   body("password")
     .isLength({ min: 8, max: 12 })
-    .withMessage("password shold be between 8 - 12 character")
+    .withMessage("password shold be between 8 - 12 character"),
+  async (req, res) => {
+    try {
+      const email = req.body.email;
+      // fields validation
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      // email validation (is exist)
+      const query = util.promisify(conn.query).bind(conn); // for multiple query
+      const userData = await query("select * from users where email = ?", [
+        email,
+      ]);
+      if (userData.length != 0) {
+        // Compare Hashed Password
+        const passwordCheck = await bcrypt.compare(
+          req.body.password,
+          userData[0].password
+        );
+        if (passwordCheck) {
+          delete userData[0].password;
+          res.status(200).json(userData[0]);
+        } else {
+          res.status(404).json({
+            errors: [
+              {
+                msg: "Invaled password",
+              },
+            ],
+          });
+        }
+      } else {
+        res.status(404).json({
+          err: "Invaled Email",
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        err: err,
+      });
+    }
+  }
 );
 // registration
 
 router.post(
-  "/regester",
+  "/register",
   body("email").isEmail().withMessage("Please enter the valid Email"),
   body("name")
     .isString()
@@ -65,13 +107,11 @@ router.post(
             res.status(200).json(userObject);
           } catch (error) {
             res.status(500).json({ error: error });
-            console.log(error);
           }
         }
       }
     } catch (error) {
       res.status(500).json({ error: error });
-      console.log(error);
     }
   }
 );
