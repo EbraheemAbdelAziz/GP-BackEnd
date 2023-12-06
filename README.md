@@ -1,12 +1,5 @@
 # Team-Gamed Tasks
 ## الي يخلص حاجه يعمل عليها ✅
-## هنشتغل على فولدرين واحد فرونت و التاني باك 
-### Front Pages
-- Login // عبدو
-- Register // عبدو
-- Home // عادل 
-- User info // عادل
-
 ### Gameplay space invading ( هتكمل على اللعبه الي عملناها
 - select chip skin  // بدر
 - player name  // بدر
