@@ -4,7 +4,6 @@ const { body, validationResult } = require("express-validator");
 const util = require("util");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const { log } = require("console");
 
 //login
 router.post(
@@ -103,7 +102,7 @@ router.post(
           // insert user opject into db
           try {
             await query("insert into users set ?", userObject);
-            delete  userObject.password
+            delete userObject.password;
             res.status(200).json(userObject);
           } catch (error) {
             res.status(500).json({ error: error });
