@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const conn = require("../db/dbConnection");
-const { body, validationResult } = require("express-validator");
-const authorized = require("../middleware/authorize");
 const util = require("util");
+const authorized = require("../middleware/authorize");
 
 // unlocked skins list
 router.get("/unlocked",authorized, async (req, res) => {
@@ -18,7 +17,6 @@ router.get("/unlocked",authorized, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({
-        
       error: error,
     });
   }
