@@ -15,6 +15,7 @@ const auth = require("./routes/Auth");
 const skins = require("./routes/Skins");
 const User = require("./routes/User");
 const Game = require("./routes/Game");
+const traning = require("./routes/training");
 
 // ================= RUN THE APP =================
 app.listen(port, "localhost", () => console.log("SERVER IS RUNING "));
@@ -24,3 +25,4 @@ app.use("/auth", auth);
 app.use("/skins", skins);
 app.use("/user", User);
 app.use("/game", Game);
+app.use("/training", traning)
