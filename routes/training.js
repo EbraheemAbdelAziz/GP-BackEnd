@@ -36,6 +36,13 @@ router.post("/traning-data",
                         rock_position.z,
                         action
                     ]
+                    let action2 = null 
+                    if (plane_position.x !== rock_position.x) {
+                        action2 = "hold"
+                        data[6] = action2
+                        
+                    }
+                    
                     // Append data to the worksheet
                     worksheet.addRow(data);
 
