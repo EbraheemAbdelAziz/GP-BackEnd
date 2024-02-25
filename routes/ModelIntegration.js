@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
+// body("plane_position").notEmpty().withMessage("Please enter the plane_position"),
+//     body("rock_position").notEmpty().withMessage("Please enter the rock_position"),
 router.post("/model",
-    body("plane_position").notEmpty().withMessage("Please enter the plane_position"),
-    body("rock_position").notEmpty().withMessage("Please enter the rock_position"),
+    
     async (req,res) => {
         try {
             const errors = validationResult(req);
@@ -15,9 +16,10 @@ router.post("/model",
             // Define the JSON object
             const plane_position = req.body.plane_position;
             const rock_position = req.body.rock_position;
+
             const jsonObject = {
-            key1: plane_position,
-            key2: rock_position,
+                key1: plane_position.x,
+                key2: rock_position.x,
             };
 
             // Convert the JSON object to a string
@@ -34,14 +36,15 @@ router.post("/model",
             console.error(pythonProcess.error.message);
             process.exit(1);
             }
-
             // Get the output from stdout
             const output = pythonProcess.stdout.trim().split('\n');
 
             // Parse the output as JSON
             const results = output;
 
-            res.status(200).json({ msg : results[2] });
+            // console.log(jsonObject);
+            // res.status(200).json(jsonObject);
+            res.status(200).json({ action : results[2] });
         } catch (error) {
             res.status(500).json({ error: error });
         }

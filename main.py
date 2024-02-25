@@ -25,24 +25,3 @@ elif position == 1:
         print('hold')
 else:
         print('right')
-
-
-
-# Print the JSON output
-# result = {
-#     "key": "value",
-#     "foo": "bar"
-# }
-
-# Convert the result object to JSON
-# json_output = json.dumps(result)
-
-# Print the JSON output
-# print(json_output)
-
-
-
-# Print the result to stdout
-# print(result)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
