@@ -15,7 +15,8 @@ const port = 4000;
 // const skins = require("./routes/Skins");
 // const User = require("./routes/User");
 // const Game = require("./routes/Game");
-const traning = require("./routes/training");
+const ModelIntegration = require("./routes/ModelIntegration");
+// const traning = require("./routes/training");
 
 // ================= RUN THE APP =================
 app.listen(port, "localhost", () => console.log("SERVER IS RUNING "));
@@ -25,4 +26,5 @@ app.listen(port, "localhost", () => console.log("SERVER IS RUNING "));
 // app.use("/skins", skins);
 // app.use("/user", User);
 // app.use("/game", Game);
-app.use("/training", traning)
+// app.use("/training", traning)
+app.use("/test", ModelIntegration)
