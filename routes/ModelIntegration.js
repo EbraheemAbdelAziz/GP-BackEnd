@@ -1,15 +1,23 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 router.post("/model",
+    body("plane_position").notEmpty().withMessage("Please enter the plane_position"),
+    body("rock_position").notEmpty().withMessage("Please enter the rock_position"),
     async (req,res) => {
         try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
             // Invoke the Python script as a child process
             const { spawnSync } = require('child_process');
 
             // Define the JSON object
+            const plane_position = req.body.plane_position;
+            const rock_position = req.body.rock_position;
             const jsonObject = {
-            key1: -2,
-            key2: -2,
+            key1: plane_position,
+            key2: rock_position,
             };
 
             // Convert the JSON object to a string
