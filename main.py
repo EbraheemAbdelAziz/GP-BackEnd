@@ -9,6 +9,7 @@ rowdata = json.loads(json_input)
 
 
 loaded_model = tf.keras.models.load_model('D:/GP/Real GP/GP-BackEnd/machine/train.model')
+
 # Convert the result object to JSON
 def fun(x1,x2):
     input_data = [x1,x2]
