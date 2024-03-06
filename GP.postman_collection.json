@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "685f2a45-ab9a-41e4-8da7-66cff719e15f",
+		"name": "GP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26741718"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ahmed\",\r\n    \"password\": \"156754545\",\r\n    \"email\": \"madyy@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"123456789\",\r\n    \"email\": \"ebraheem@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Skins",
+			"item": [
+				{
+					"name": "Unlocked skins",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "2d808400ca0e4e196bf375a6bff9b2b6",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/skins/unlocked"
+					},
+					"response": []
+				},
+				{
+					"name": "locked skins",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/skins/locked"
+					},
+					"response": []
+				},
+				{
+					"name": "Buy skin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/skins/buy/2"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1eedbe91-610d-4990-b18f-46fe6de7ab4e"
+								},
+								{
+									"key": "name",
+									"value": "ahmed",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/skins/createSkin"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/user/info"
+					},
+					"response": []
+				},
+				{
+					"name": "update user info",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"zizo@email.com\",\r\n    \"name\":\"ebraheem\",\r\n    \"password\":\"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/user/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Game",
+			"item": [
+				{
+					"name": "update high score",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "2d808400ca0e4e196bf375a6bff9b2b6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"high_score\": \"30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/game/update-score"
+					},
+					"response": []
+				},
+				{
+					"name": "update coins",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "2d808400ca0e4e196bf375a6bff9b2b6",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"coins\": \"40\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/game/update-coins"
+					},
+					"response": []
+				},
+				{
+					"name": "get user high score",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "2d808400ca0e4e196bf375a6bff9b2b6",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/game/high-score"
+					},
+					"response": []
+				},
+				{
+					"name": "get user coins",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "2d808400ca0e4e196bf375a6bff9b2b6",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/game/coins"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Training",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/training/traning-data"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/training/traning-data"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
