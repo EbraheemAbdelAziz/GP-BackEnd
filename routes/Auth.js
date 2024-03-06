@@ -45,7 +45,11 @@ router.post(
         }
       } else {
         res.status(404).json({
-          err: "Invaled Email",
+          errors: [
+            {
+              msg: "Invaled email",
+            },
+          ],
         });
       }
     } catch (err) {

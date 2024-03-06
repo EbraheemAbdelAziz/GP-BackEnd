@@ -12,7 +12,7 @@ const port = 4000;
 
 // ================= REQUIRED MODULE =================
 const auth = require("./routes/Auth");
-// const skins = require("./routes/Skins");
+const skins = require("./routes/Skins");
 // const User = require("./routes/User");
 // const Game = require("./routes/Game");
 const ModelIntegration = require("./routes/ModelIntegration");
@@ -23,7 +23,7 @@ app.listen(port, "localhost", () => console.log("SERVER IS RUNING "));
 
 // ================= API ROUTES  =================
 app.use("/auth", auth);
-// app.use("/skins", skins);
+app.use("/skins", skins);
 // app.use("/user", User);
 // app.use("/game", Game);
 // app.use("/training", traning)

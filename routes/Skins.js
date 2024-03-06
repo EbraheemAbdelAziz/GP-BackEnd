@@ -2,6 +2,8 @@ const router = require("express").Router();
 const conn = require("../db/dbConnection");
 const util = require("util");
 const authorized = require("../middleware/authorize");
+const upload = require("../middleware/uploadImages");
+const { body, validationResult } = require("express-validator");
 
 // unlocked skins list
 router.get("/unlocked", authorized, async (req, res) => {
@@ -90,4 +92,36 @@ router.post("/buy/:skinid", authorized, async (req, res) => {
     });
   }
 });
+router.post("/createSkin",upload.single("image"),
+body("name")
+    .isString()
+    .withMessage("Please enter the valid name")
+    .isLength({ min: 3, max: 20 })
+    .withMessage("password shold be between 3 - 20 character"),
+    async (req, res) =>{
+      try {
+        // 1- validation the request
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      } else {
+        if (!req.file) {
+          return res.status(404).json({
+              errors : [
+                  {
+                      msg:"image is reqiered",
+                  },
+              ],
+          })
+        }
+        res.status(200).json({
+          msg : req.file ,
+      })
+      }
+      } catch (error) {
+        res.status(500).json({ error: error });
+        console.log(error);
+      }
+    }
+)
 module.exports = router;
