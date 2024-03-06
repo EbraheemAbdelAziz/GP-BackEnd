@@ -56,7 +56,6 @@ router.post(
   }
 );
 // registration
-
 router.post(
   "/register",
   body("email").isEmail().withMessage("Please enter the valid Email"),

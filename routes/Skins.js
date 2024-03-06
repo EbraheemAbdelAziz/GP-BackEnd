@@ -10,7 +10,7 @@ router.get("/unlocked", authorized, async (req, res) => {
     const userID = res.locals.user.id;
 
     const skinsData = await query(
-      "select * from skins INNER JOIN usersskins on skins.id = usersskins.skinId where usersskins.userid = ?",
+      "select * from skins INNER JOIN usersSkins on skins.id = usersskins.skinId where usersskins.userid = ?",
       [userID]
     );
     res.status(200).json(skinsData);
