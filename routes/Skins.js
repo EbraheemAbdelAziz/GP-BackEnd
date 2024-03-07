@@ -10,12 +10,57 @@ router.get("/unlocked", authorized, async (req, res) => {
   try {
     const query = util.promisify(conn.query).bind(conn); // for multiple query
     const userID = res.locals.user.id;
-
     const skinsData = await query(
-      "select * from skins INNER JOIN usersSkins on skins.id = usersskins.skinId where usersskins.userid = ?",
+      "select * from skins INNER JOIN userskins on skins.id = userskins.skinId where userskins.userid = ?",
       [userID]
     );
+    skinsData.map((item)=>{
+      item.imageUrl = "http://" + req.hostname +":4000/"+ item.imageUrl ;
+      item.scale = JSON.parse(item.scale);
+      item.positionPlane = JSON.parse(item.positionPlane)
+    })
     res.status(200).json(skinsData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error,
+    });
+  }
+});
+// get all skins
+router.get("/allSkins", authorized, async (req, res) => {
+  try {
+    const query = util.promisify(conn.query).bind(conn); // for multiple query
+    const userID = res.locals.user.id;
+
+    const skinsData = await query(
+      "select * from skins "
+    );
+    skinsData.map((item)=>{
+      item.imageUrl = "http://" + req.hostname +":4000/"+ item.imageUrl ;
+    })
+    res.status(200).json(skinsData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error,
+    });
+  }
+});
+// git spacific skin
+router.get("/spacificSkins/:skinid", authorized, async (req, res) => {
+  try {
+    const query = util.promisify(conn.query).bind(conn); // for multiple query
+    const skinId = req.params.skinid;
+    const skinsData = await query(
+      "select * from skins where id=?",[skinId]
+    );
+    skinsData.map((item)=>{
+      item.imageUrl = "http://" + req.hostname +":4000/"+ item.imageUrl ;
+      item.scale = JSON.parse(item.scale);
+      item.positionPlane = JSON.parse(item.positionPlane)
+    })
+    res.status(200).json(skinsData[0]);
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -30,9 +75,14 @@ router.get("/locked", authorized, async (req, res) => {
     const userID = res.locals.user.id;
 
     const skinsData = await query(
-      "SELECT * FROM skins WHERE NOT EXISTS ( SELECT 1 FROM usersskins WHERE skins.id = usersskins.skinId and usersskins.userId = ?)",
+      "SELECT * FROM skins WHERE NOT EXISTS ( SELECT 1 FROM userskins WHERE skins.id = userskins.skinId and userskins.userId = ?)",
       [userID]
     );
+    skinsData.map((item)=>{
+      item.imageUrl = "http://" + req.hostname +":4000/"+ item.imageUrl ;
+      item.scale = JSON.parse(item.scale);
+      item.positionPlane = JSON.parse(item.positionPlane)
+    })
     res.status(200).json(skinsData);
   } catch (error) {
     res.status(500).json({
@@ -47,7 +97,7 @@ router.post("/buy/:skinid", authorized, async (req, res) => {
     const userID = res.locals.user.id;
     const skinId = req.params.skinid;
     const skinsData = await query(
-      "SELECT * FROM skins WHERE NOT EXISTS ( SELECT 1 FROM usersskins WHERE skins.id = usersskins.skinId and usersskins.userId = ? ) and skins.id = ?",
+      "SELECT * FROM skins WHERE NOT EXISTS ( SELECT 1 FROM userskins WHERE skins.id = userskins.skinId and userskins.userId = ? ) and skins.id = ?",
       [userID, skinId]
     );
     if (skinsData.length == 0) {
@@ -79,7 +129,7 @@ router.post("/buy/:skinid", authorized, async (req, res) => {
           coins: userCoins[0].coins - skinsData[0].price,
         };
         await query("update users set ? where id = ?", [newCoins, userID]);
-        await query("insert into usersskins set ?", buySkin);
+        await query("insert into userskins set ?", buySkin);
         res.status(200).json({
           msg: "skin is now yours",
         });
@@ -98,26 +148,42 @@ body("name")
     .withMessage("Please enter the valid name")
     .isLength({ min: 3, max: 20 })
     .withMessage("password shold be between 3 - 20 character"),
+    body("price")
+    .isString()
+    .withMessage("Please enter the valid scale"),
     async (req, res) =>{
       try {
+        const query = util.promisify(conn.query).bind(conn); // for multiple query
+
         // 1- validation the request
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      } else {
-        if (!req.file) {
-          return res.status(404).json({
-              errors : [
-                  {
-                      msg:"image is reqiered",
-                  },
-              ],
-          })
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+        } else {
+          if (!req.file) {
+            return res.status(404).json({
+                errors : [
+                    {
+                        msg:"image is required",
+                    },
+                ],
+            })
+          }
+          const name = req.body.name;
+          const skinData = {
+            name : name,
+            url : req.file.filename,
+            scale : JSON.stringify({
+              x: 1,
+              y: 1,
+              z: 1
+            }),
+          }  
+          const a = await query("insert into skins set ?",skinData)
+          res.status(200).json({
+            msg : "skin created succesfullly",
+        })
         }
-        res.status(200).json({
-          msg : req.file ,
-      })
-      }
       } catch (error) {
         res.status(500).json({ error: error });
         console.log(error);
