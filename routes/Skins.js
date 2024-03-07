@@ -68,6 +68,7 @@ router.get("/spacificSkins/:skinid", authorized, async (req, res) => {
     });
   }
 });
+
 // locked skins list
 router.get("/locked", authorized, async (req, res) => {
   try {
@@ -94,8 +95,8 @@ router.get("/locked", authorized, async (req, res) => {
 router.post("/buy/:skinid", authorized, async (req, res) => {
   try {
     const query = util.promisify(conn.query).bind(conn); // for multiple query
-    const userID = res.locals.user.id;
     const skinId = req.params.skinid;
+    const userID = req.body.userId ;
     const skinsData = await query(
       "SELECT * FROM skins WHERE NOT EXISTS ( SELECT 1 FROM userskins WHERE skins.id = userskins.skinId and userskins.userId = ? ) and skins.id = ?",
       [userID, skinId]
@@ -137,6 +138,7 @@ router.post("/buy/:skinid", authorized, async (req, res) => {
       
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       error: error,
     });
