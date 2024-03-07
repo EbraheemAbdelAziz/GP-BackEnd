@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"ahmed\",\r\n    \"password\": \"156754545\",\r\n    \"email\": \"madyy@email.com\"\r\n}",
+							"raw": "{\r\n    \"name\": \"ahmed\",\r\n    \"password\": \"123456789\",\r\n    \"email\": \"ahmed@email.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"password\": \"123456789\",\r\n    \"email\": \"ebraheem@email.com\"\r\n}",
+							"raw": "{\r\n    \"password\": \"123456789\",\r\n    \"email\": \"ahm@email.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -81,6 +81,21 @@
 					"response": []
 				},
 				{
+					"name": "get all skins",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/skins/locked"
+					},
+					"response": []
+				},
+				{
 					"name": "Buy skin",
 					"request": {
 						"method": "POST",
@@ -96,26 +111,58 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Buy skin Copy",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "token",
+								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/skins/buy/2"
+					},
+					"response": []
+				},
+				{
+					"name": "get spacific skin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "image",
 									"type": "file",
-									"src": "postman-cloud:///1eedbe91-610d-4990-b18f-46fe6de7ab4e"
+									"src": "/D:/GP/Real GP/GP-Frontend/src/img/skin1.png",
+									"disabled": true
 								},
 								{
 									"key": "name",
-									"value": "ahmed",
-									"type": "text"
+									"value": "Star Lord",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "scale",
+									"value": "",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
-						"url": "http://localhost:4000/skins/createSkin"
+						"url": "http://localhost:4000/skins/spacificSkins/9"
 					},
 					"response": []
 				}
@@ -276,14 +323,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n}",
+							"raw": "{\r\n    \"plane_position\": {\r\n        \"x\":0\r\n    },\r\n    \"rock_position\" : {\r\n        \"x\":-2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:4000/training/traning-data"
+						"url": "http://localhost:4000/test/model"
 					},
 					"response": []
 				}
