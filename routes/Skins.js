@@ -38,6 +38,8 @@ router.get("/allSkins", authorized, async (req, res) => {
     );
     skinsData.map((item)=>{
       item.imageUrl = "http://" + req.hostname +":4000/"+ item.imageUrl ;
+      item.scale = JSON.parse(item.scale);
+      item.positionPlane = JSON.parse(item.positionPlane)
     })
     res.status(200).json(skinsData);
   } catch (error) {
@@ -132,7 +134,7 @@ router.post("/buy/:skinid", authorized, async (req, res) => {
         await query("update users set ? where id = ?", [newCoins, userID]);
         await query("insert into userskins set ?", buySkin);
         res.status(200).json({
-          msg: "skin is now yours",
+          msg: "You Buy Successfully...!",
         });
       }
       
