@@ -21,7 +21,6 @@ router.get("/unlocked", authorized, async (req, res) => {
     })
     res.status(200).json(skinsData);
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       error: error,
     });
@@ -183,7 +182,7 @@ body("name")
               z: 1
             }),
           }  
-          const a = await query("insert into skins set ?",skinData)
+          await query("insert into skins set ?",skinData)
           res.status(200).json({
             msg : "skin created succesfullly",
         })

@@ -16,7 +16,7 @@ router.get("/info", authorized, async (req, res) => {
       [userID]
     );
     delete UserData[0].password;
-    res.status(200).json(UserData);
+    res.status(200).json(UserData[0]);
   } catch (error) {
     res.status(500).json({
       error: error,

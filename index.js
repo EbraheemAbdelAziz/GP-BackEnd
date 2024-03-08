@@ -16,6 +16,7 @@ const skins = require("./routes/Skins");
 const User = require("./routes/User");
 const Game = require("./routes/Game");
 const ModelIntegration = require("./routes/ModelIntegration");
+const RPSGame = require("./routes/RPS-game")
 // const traning = require("./routes/training");
 
 // ================= RUN THE APP =================
@@ -28,3 +29,4 @@ app.use("/user", User);
 app.use("/game", Game);
 // app.use("/training", traning)
 app.use("/test", ModelIntegration)
+app.use("/RPS-game", RPSGame)
