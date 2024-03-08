@@ -22,6 +22,32 @@ router.get("/allChamps", authorized, async (req, res) => {
           });
     }
 })
+router.get("/spacificChamp/:id", authorized, async (req, res) => {
+    try {
+        const query = util.promisify(conn.query).bind(conn); // for multiple query
+        const champId = req.params.id 
+        const champData = await query("select * from chamionships where id = ?",[champId] );
+        if (champData.length > 0) {
+            champData.map((item)=>{
+            item.image = "http://" + req.hostname +":4000/"+ item.image ;
+            })
+            res.status(200).json(champData[0]);
+        }else{
+            res.status(404).json({
+                errors: [
+                  {
+                    msg: "please select correct championchip",
+                  },
+                ],
+              });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            error: error,
+          });
+    }
+})
 
 router.post("/addChamps", authorized,upload.single("image"),
     body("name")
