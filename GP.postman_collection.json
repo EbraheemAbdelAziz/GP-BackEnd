@@ -57,7 +57,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "2d808400ca0e4e196bf375a6bff9b2b6",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
 								"type": "text"
 							}
 						],
@@ -72,7 +72,7 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
 								"type": "text"
 							}
 						],
@@ -87,11 +87,11 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:4000/skins/locked"
+						"url": "http://localhost:4000/skins/allSkins"
 					},
 					"response": []
 				},
@@ -102,11 +102,11 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "99e61b041e3c8e58bb4405c656e1947b",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:4000/skins/buy/2"
+						"url": "http://localhost:4000/skins/buy/9"
 					},
 					"response": []
 				},
@@ -121,7 +121,27 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:4000/skins/buy/2"
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "price",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:4000/skins/createSkin"
 					},
 					"response": []
 				},
@@ -331,6 +351,59 @@
 							}
 						},
 						"url": "http://localhost:4000/test/model"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RPS-game",
+			"item": [
+				{
+					"name": "get all Champs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:4000/RPS-game/allChamps"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "f0348b7e23dfd834531bfc873162cda8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:4000/RPS-game/addChamps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"RPS-game",
+								"addChamps"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "f0348b7e23dfd834531bfc873162cda8",
+									"disabled": true
+								}
+							]
+						}
 					},
 					"response": []
 				}
