@@ -64,7 +64,8 @@ router.get("/coins",authorized,
 router.put(
   "/update-coins",
   authorized,
-  body("coins"),
+  body("coins").isNumeric().withMessage("please send correct coins"),
+  body("xp").isNumeric().withMessage("please send correct xp"),
   async (req,res)=>{
     try {
       const query = util.promisify(conn.query).bind(conn); // for multiple query
@@ -72,9 +73,10 @@ router.put(
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       } else {
-        const userID = res.locals.user.id;
+        const userID = await res.locals.user.id;
         const userObject = {
           coins: req.body.coins,
+          xp: req.body.xp
         };
         await query("update users set ? where id = ?", [userObject, userID]);
         res.status(200).json({
