@@ -4,6 +4,8 @@ const util = require("util");
 const bcrypt = require("bcrypt");
 const authorized = require("../middleware/authorize");
 const { body, validationResult } = require("express-validator");
+const upload = require("../middleware/uploadImages");
+const fs = require("fs");
 
 // get user info
 router.get("/info", authorized, async (req, res) => {
@@ -15,6 +17,10 @@ router.get("/info", authorized, async (req, res) => {
       "SELECT * FROM users where id = ?",
       [userID]
     );
+    UserData.map((item)=>{
+      item.photo = "http://" + req.hostname +":4000/"+ item.photo ;
+
+    })
     delete UserData[0].password;
     res.status(200).json(UserData[0]);
   } catch (error) {
@@ -27,7 +33,7 @@ router.get("/info", authorized, async (req, res) => {
 // update user info
 router.put(
   "/update",
-  authorized,
+  authorized,upload.single("photo"),
   body("email").isEmail().withMessage("Please enter the valid Email"),
   body("name")
     .isString()
@@ -43,6 +49,7 @@ router.put(
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       } else {
+        
         const query = util.promisify(conn.query).bind(conn); // for multiple query
         const userID = res.locals.user.id;
         const email = req.body.email;
@@ -71,6 +78,12 @@ router.put(
           if (!passwordCheck) {
             userObject.password = await bcrypt.hash(req.body.password, 10);
           }
+          if (req.file ) {
+            userObject.photo = req.file.filename;
+            if (res.locals.user.photo !== "1709903298569.jpg") {
+              fs.unlinkSync("./upload/"+ res.locals.user.photo )
+            }
+          }
           await query("update users set ? where id = ?", [userObject, userID]);
           res.status(200).json({
             msg: "user info updated successfully",
@@ -79,6 +92,7 @@ router.put(
       }
     } catch (error) {
       res.status(500).json({ error: error });
+      console.log(error);
     }
   }
 );

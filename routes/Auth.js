@@ -100,6 +100,7 @@ router.post(
             email: req.body.email,
             password: await bcrypt.hash(req.body.password, 10),
             token: crypto.randomBytes(16).toString("hex"),
+            photo: "1709903298569.jpg",
           };
 
           // insert user opject into db
