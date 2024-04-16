@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Mar 07, 2024 at 02:27 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Host: 127.0.0.1
+-- Generation Time: Apr 16, 2024 at 10:04 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chamionships`
+--
+
+CREATE TABLE `chamionships` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `game_remaining` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chamionships`
+--
+
+INSERT INTO `chamionships` (`id`, `name`, `price`, `game_remaining`, `image`) VALUES
+(1, 'ziko', 50, 3, '1709903298566.jpg'),
+(2, 'zizo', 200, 5, '1709903477170.jpg'),
+(3, 'badr', 400, 7, '1709903498769.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `skins`
 --
 
@@ -35,7 +58,7 @@ CREATE TABLE `skins` (
   `modelUrl` varchar(255) NOT NULL,
   `positionPlane` varchar(255) NOT NULL,
   `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `skins`
@@ -62,16 +85,17 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `coins` int(11) NOT NULL DEFAULT 200,
-  `xp` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `xp` int(11) NOT NULL DEFAULT 0,
+  `photo` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `token`, `coins`, `xp`) VALUES
-(1, 'ahmed', 'ahmed@gmail.com', '$2b$10$.QG4yGze9ffc2T/Ccs8cxOJNl6YIUXgRPJfNSk1OJ1SzJrcrUNBtK', 'f0348b7e23dfd834531bfc873162cda8', 1400, 0),
-(2, 'ebraheem', 'ebraheem@gmail.com', '$2b$10$5CEyoct3FyQ5wHre86baBOIrkuYopQq6M.CWwhzaZCwr1uzQI8fH.', 'ed270d64616d3779e002dbc2e77db04d', 1000, 0);
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `token`, `coins`, `xp`, `photo`) VALUES
+(1, 'Ebraheem zezo', 'ebraheemzezo@gmail.com', '$2b$10$P8tHFI11T81.Z1flRC6GVe/CMmSf1O9.0trYC7CJrTU.NAdG3TZvy', 'f0348b7e23dfd834531bfc873162cda8', 10, 90, '1713243606112.png'),
+(2, 'ebraheem', 'ebraheem@gmail.com', '$2b$10$5CEyoct3FyQ5wHre86baBOIrkuYopQq6M.CWwhzaZCwr1uzQI8fH.', 'ed270d64616d3779e002dbc2e77db04d', 1000, 0, '1709903298569.jpg');
 
 -- --------------------------------------------------------
 
@@ -82,7 +106,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `token`, `coins`, `xp`) 
 CREATE TABLE `userskins` (
   `userId` int(11) NOT NULL,
   `skinId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `userskins`
@@ -91,13 +115,20 @@ CREATE TABLE `userskins` (
 INSERT INTO `userskins` (`userId`, `skinId`) VALUES
 (1, 9),
 (1, 10),
+(1, 11),
 (1, 12),
-(1, 13),
+(1, 14),
 (2, 9);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `chamionships`
+--
+ALTER TABLE `chamionships`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `skins`
@@ -121,6 +152,12 @@ ALTER TABLE `userskins`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `chamionships`
+--
+ALTER TABLE `chamionships`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `skins`
