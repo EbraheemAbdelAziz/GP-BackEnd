@@ -10,7 +10,7 @@ router.get("/rounds",authorized,
         try {
             const query = util.promisify(conn.query).bind(conn); // for multiple query
             const userID = res.locals.user.id;
-            const starlordrounds = await query("SELECT time , requiredCoins , starlordrounds.id FROM starlordrounds join userround on starlordrounds.id =  userround.roundId join users on userround.userId = users.id  where users.id = ? ",[userID]);
+            const starlordrounds = await query("SELECT  starlordrounds.id , time , requiredCoins , speed FROM starlordrounds join userround on starlordrounds.id =  userround.roundId join users on userround.userId = users.id  where users.id = ? ",[userID]);
             res.status(200).json(starlordrounds[0]);
         } catch (error) {
             res.status(500).json({ error: error });
@@ -93,7 +93,6 @@ router.put(
             }
             // asign a new round to user 
             await query("insert into userround set ? ",[userRound])
-            console.log(chekMoreRounds[0].id);
           }else{
             // if no more rounds 
             return res.status(404).json({

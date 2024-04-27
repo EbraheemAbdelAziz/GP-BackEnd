@@ -105,7 +105,12 @@ router.post(
 
           // insert user opject into db
           try {
-            await query("insert into users set ?", userObject);
+            const user = await query("insert into users set ?", userObject);
+            const userRound = {
+              userId : user.insertId ,
+              roundId : 1
+            } 
+            await query('insert into users set ?',[userRound])
             delete userObject.password;
             res.status(200).json(userObject);
           } catch (error) {
