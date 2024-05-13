@@ -12,7 +12,6 @@ router.post("/model",
             }
             // Invoke the Python script as a child process
             const { spawnSync } = require('child_process');
-
             // Define the JSON object
             const plane_position = req.body.plane_position;
             const rock_position = req.body.rock_position;

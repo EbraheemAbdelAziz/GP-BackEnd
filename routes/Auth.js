@@ -11,7 +11,7 @@ router.post(
   body("email").isEmail().withMessage("Please enter the valid Email"),
   body("password")
     .isLength({ min: 8, max: 12 })
-    .withMessage("password shold be between 8 - 12 character"),
+    .withMessage("password should be between 8 - 12 character"),
   async (req, res) => {
     try {
       const email = req.body.email;
@@ -62,15 +62,15 @@ router.post(
 // registration
 router.post(
   "/register",
-  body("email").isEmail().withMessage("Please enter the valid Email"),
+  body("email").isEmail().withMessage("Please enter a valid Email"),
   body("name")
     .isString()
-    .withMessage("Please enter the valid name")
+    .withMessage("Please enter a valid name")
     .isLength({ min: 3, max: 20 })
-    .withMessage("password shold be between 3 - 20 character"),
+    .withMessage("Name should be between 3 - 20 character"),
   body("password")
     .isLength({ min: 8, max: 12 })
-    .withMessage("password shold be between 8 - 12 character"),
+    .withMessage("password should be between 8 - 12 character"),
   async (req, res) => {
     try {
       // 1- validation the request
@@ -89,7 +89,7 @@ router.post(
           res.status(400).json({
             errors: [
               {
-                msg: "email is already exist",
+                msg: "This Email is already exist",
               },
             ],
           });
@@ -102,7 +102,6 @@ router.post(
             token: crypto.randomBytes(16).toString("hex"),
             photo: "1709903298569.jpg",
           };
-
           // insert user opject into db
           try {
             const user = await query("insert into users set ?", userObject);
@@ -110,7 +109,7 @@ router.post(
               userId : user.insertId ,
               roundId : 1
             } 
-            await query('insert into users set ?',[userRound])
+            await query('insert into userround set ?',[userRound])
             delete userObject.password;
             res.status(200).json(userObject);
           } catch (error) {
