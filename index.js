@@ -15,9 +15,8 @@ const auth = require("./routes/Auth");
 const skins = require("./routes/Skins");
 const User = require("./routes/User");
 const Game = require("./routes/Game");
-const ModelIntegration = require("./routes/ModelIntegration");
 const RPSGame = require("./routes/RPS-game")
-// const traning = require("./routes/training");
+const Qtable = require('./routes/Qtable')
 
 // ================= RUN THE APP =================
 app.listen(port, "localhost", () => console.log("SERVER IS RUNING "));
@@ -27,6 +26,5 @@ app.use("/auth", auth);
 app.use("/skins", skins);
 app.use("/user", User);
 app.use("/game", Game);
-// app.use("/training", traning)
-app.use("/test", ModelIntegration)
+app.use("/ai", Qtable)
 app.use("/RPS-game", RPSGame)
