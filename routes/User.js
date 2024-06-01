@@ -92,9 +92,91 @@ router.put(
       }
     } catch (error) {
       res.status(500).json({ error: error });
-      console.log(error);
     }
   }
 );
-
+// forget password
+router.post(
+  "/forget-password",
+  body("email").isEmail().withMessage("Please enter the valid Email"),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      } else {
+        const query = util.promisify(conn.query).bind(conn); // for multiple query
+        const email = req.body.email;
+        const checkEmailExist = await query(
+          "select * from users where email = ?",
+          [email]
+        );
+        if (checkEmailExist.length > 0) {
+          res.status(200).json({
+            name : checkEmailExist[0].name,
+            email : checkEmailExist[0].email,
+            token : checkEmailExist[0].token,
+            msg : 'Reset email sent successfully'
+          });
+        } else {
+          res.status(400).json({
+            errors: [
+              {
+                msg: "Email isn't exist !",
+              },
+            ],
+          });
+        }
+      }
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  }
+);
+// reset password
+router.put(
+  "/reset-password",
+  body("password")
+    .isLength({ min: 8, max: 12 })
+    .withMessage("password shold be between 8 - 12 character"),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      } else {
+        const query = util.promisify(conn.query).bind(conn); // for multiple query
+        const token = req.body.token;
+        const checkEmailExist = await query(
+          "select * from users where token = ?",
+          [token]
+        );
+        if (checkEmailExist.length > 0){
+          const password = req.body.password;
+          const userData = {
+            password : await bcrypt.hash(password, 10)
+          }
+          await query(
+            "update users set ? where token = ?",
+            [userData , token ]
+          );
+          res.status(200).json({
+            msg: "Password updated succsessfuly",
+          });
+        } else {
+          res.status(400).json({
+            errors: [
+              {
+                msg: "Email isn't exist !",
+              },
+            ],
+          });
+        }
+        
+      }
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  }
+);
 module.exports = router;

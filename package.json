@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/EbraheemAbdelAziz/GP-BackEnd#readme",
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",

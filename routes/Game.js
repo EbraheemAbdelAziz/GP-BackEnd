@@ -33,32 +33,6 @@ router.get("/coins",authorized,
         }
     }
 )
-// update user high score
-// router.put(
-//   "/update-score",
-//   authorized,
-//   body("high_score"),
-//   async (req,res)=>{
-//     try {
-//       const query = util.promisify(conn.query).bind(conn); // for multiple query
-//       const errors = validationResult(req);
-//       if (!errors.isEmpty()) {
-//         return res.status(400).json({ errors: errors.array() });
-//       } else {
-//         const userID = res.locals.user.id;
-//         const userObject = {
-//           high_score: req.body.high_score,
-//         };
-//         await query("update users set ? where id = ?", [userObject, userID]);
-//         res.status(200).json({
-//           msg: "user score updated successfully",
-//         });
-//       }
-//     } catch (error) {
-//         res.status(500).json({ error: error });
-//     }
-//   }
-// );
 // update user coins
 router.put(
   "/update-coins",
@@ -104,7 +78,6 @@ router.put(
           })
           }
         }
-        
         res.status(200).json({
           msg: "user coins and xp updated successfully",
         });
