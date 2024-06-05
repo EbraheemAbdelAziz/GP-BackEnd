@@ -99,6 +99,7 @@ router.get("/ranked-users",authorized,
               delete user.password;
               delete user.qtable
               delete user.tutorial
+              user.photo = "http://" + req.hostname +":4000/"+ user.photo ;
             })
             res.status(200).json(rankedUsers);
         } catch (error) {
