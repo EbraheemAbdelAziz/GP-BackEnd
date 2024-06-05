@@ -88,4 +88,22 @@ router.put(
     }
   }
 );
+// get users sorted by xp
+router.get("/ranked-users",authorized,
+    async (req,res) =>{
+        try {
+            const query = util.promisify(conn.query).bind(conn); // for multiple query
+            const userID = res.locals.user.id;
+            const rankedUsers = await query("SELECT * from users order by xp desc ",[userID]);
+            rankedUsers.map((user)=>{
+              delete user.password;
+              delete user.qtable
+              delete user.tutorial
+            })
+            res.status(200).json(rankedUsers);
+        } catch (error) {
+            res.status(500).json({ error: error });
+        }
+    }
+)
 module.exports = router;
